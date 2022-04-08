@@ -1,36 +1,64 @@
 ﻿@page
+@using ToDosApplication.Models
 @model IndexModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "Home page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-  <div class="form-row">
-      <div class="row">
-        <div class="col-md-12 col-xs-12 table-col">
-          <div class="table-responsive">
-            <table id="search-card-table" class="display table table-bordered table-stripped">
-              <thead>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-              </thead>
+   <form method="post">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Added Date</th>
+                <th>Completed</th>
+                <th>Actions</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < Model.toDoList.Count; i++)
+            {
+                var item = Model.toDoList[i];
                 <tr>
-                  <td width="10%"></td>
-                  <td width="10%"><input id="toDoDescp" type="text" placeholder="" class="fm-txt form-control inputSearch" /></td>
-                  <td width="10%"></td>
-                  <td width="10%"></td> 
-              </tr>
-              
-            </table>
-          </div>
-          <!-- Table Ends -->
-        </div>
-      </div>
-    </div>
+                   
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AddDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsCompleted)
+                    </td>
+                    <td>
+                        <input type="submit" value="Update" class="btn btn-primary" />
+                    </td>
+                   
+                </tr>
+            }
+        </tbody>
+    </table>
+    
+</form>
 </div>
+
+
+<script>
+    $("form").submit(function () {
+        var index = 0;
+        $("tbody tr").each(function () {
+            var lasttd = $(this).find('td:last-child');
+            
+            if (lasttd.find("input")[0].checked) {
+                lasttd.find("input").each(function () {
+                    $(this).attr("name", $(this).attr("name").replace("index",index));
+                })
+                index++;
+            }
+        })
+    })
+</script>

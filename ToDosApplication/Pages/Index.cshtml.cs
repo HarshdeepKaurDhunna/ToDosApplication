@@ -3,23 +3,24 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using ToDosApplication.Models;
 
 namespace ToDosApplication.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
-
-        public IndexModel(ILogger<IndexModel> logger)
-        {
-            _logger = logger;
-        }
+       
+        [BindProperty]
+        public IList<ToDo> toDoList { get; set; }
 
         public void OnGet()
         {
-
+            toDoList = new List<ToDo> {
+                new ToDo { ID = 1, Description = "1", AddDate = DateTime.Now, IsCompleted = true},
+                new ToDo { ID = 2, Description = "2", AddDate = DateTime.Now, IsCompleted = true},
+                new ToDo { ID = 3, Description = "3", AddDate = DateTime.Now, IsCompleted = false}
+                 
+            };
         }
     }
 }
