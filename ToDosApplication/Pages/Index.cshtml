@@ -6,59 +6,43 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
+
     <h1 class="display-4">Welcome</h1>
-   <form method="post">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Description</th>
-                <th>Added Date</th>
-                <th>Completed</th>
-                <th>Actions</th>
-               
-            </tr>
-        </thead>
-        <tbody>
-            @for (var i = 0; i < Model.toDoList.Count; i++)
-            {
-                var item = Model.toDoList[i];
-                <tr>
+    <a asp-page="Create" class="btn btn-primary" >Add New</a>
+    <div class="text-center">
+        <form method="post">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Added Date</th>
+                        <th>Completed</th>
+                        <th>Actions</th>
+                   </tr>
+                </thead>
+                <tbody>
+                    @for (var i = 0; i < Model.toDoList.Count; i++)
+                    {
+                        var item = Model.toDoList[i];
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AddDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsCompleted)
+                            </td>
+                            <td>
+                                 <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary">Edit</a>
+                                 <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-primary">Delete</a>
+                            </td>
                    
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AddDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IsCompleted)
-                    </td>
-                    <td>
-                        <input type="submit" value="Update" class="btn btn-primary" />
-                    </td>
-                   
-                </tr>
-            }
-        </tbody>
-    </table>
-    
-</form>
-</div>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </form>
+    </div>
 
-
-<script>
-    $("form").submit(function () {
-        var index = 0;
-        $("tbody tr").each(function () {
-            var lasttd = $(this).find('td:last-child');
-            
-            if (lasttd.find("input")[0].checked) {
-                lasttd.find("input").each(function () {
-                    $(this).attr("name", $(this).attr("name").replace("index",index));
-                })
-                index++;
-            }
-        })
-    })
-</script>
