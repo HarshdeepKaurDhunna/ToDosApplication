@@ -1,0 +1,25 @@
+﻿@page "{id:int}"
+@model ToDosApplication.Pages.EditModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+}
+<h1>Edit ToDo - @Model.ToDo.ID</h1>
+<form method="post">
+    <div asp-validation-summary="All"></div>
+    <input asp-for="ToDo.ID" type="hidden" />
+    <div>
+        <label asp-for="ToDo.Description"></label>
+        <div>
+            <input asp-for="ToDo.Description" />
+            
+        </div>
+         <label asp-for="ToDo.Description"></label>
+        <div
+            <input asp-for="ToDo.IsCompleted" />
+        </div>
+    </div>
+
+    <div>
+        <button type="submit">Save</button>
+    </div>
+</form>

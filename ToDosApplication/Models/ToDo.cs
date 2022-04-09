@@ -10,5 +10,6 @@ namespace ToDosApplication.Models
         public string Description { get; set; }
         public DateTime AddDate { get; set; }
         public bool IsCompleted { get; set; }
+
     }
 }
