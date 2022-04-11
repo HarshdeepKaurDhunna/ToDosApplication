@@ -1,4 +1,5 @@
-﻿@page
+﻿@*Author A00246003 *@
+@page
 @using ToDosApplication.Models
 @model IndexModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -6,43 +7,94 @@
     ViewData["Title"] = "Home page";
 }
 
+  
+<div class="grid-box">
+  <div class="grid-heading">
+   <h4>Add/Edit To Do</h4>
+  </div>
+  <!-- Grid Heading Ends -->
 
-    <h1 class="display-4">Welcome</h1>
-    <a asp-page="Create" class="btn btn-primary" >Add New</a>
-    <div class="text-center">
-        <form method="post">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Description</th>
-                        <th>Added Date</th>
-                        <th>Completed</th>
-                        <th>Actions</th>
-                   </tr>
-                </thead>
-                <tbody>
-                    @for (var i = 0; i < Model.toDoList.Count; i++)
-                    {
-                        var item = Model.toDoList[i];
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Description)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.AddDate)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.IsCompleted)
-                            </td>
-                            <td>
-                                 <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary">Edit</a>
-                                 <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-primary">Delete</a>
-                            </td>
-                   
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </form>
+  <div class="grid-inner" >
+    <form method="post">
+      <div class="form-row">
+        <div class="row">
+         
+            <div class="col-md-8 col-xs-12">
+                <label>Description:</label>
+                <input type="text" class="fm-txt form-control" style = "padding: 12px 20px;"asp-for="ToDo.Description" />
+              </div>
+        </div>
+       </div>
+    <!-- Form Row ENds -->
+
+      <div class="form-row">
+       <input class="btn grey-btn" type="submit" />
+      </div>
+      <!-- Form Row ENds -->
+    </form>
+  </div>
+  <!-- Grid Inner Ends -->
+</div>
+<div  class="grid-box">
+    <div class="grid-heading">
+     <h4>To Do List</h4>
     </div>
+  <div class="grid-inner">
+   
+    <!-- Form Row Ends -->
 
+    <div class="form-row">
+      <div class="row">
+        <div class="col-md-12 col-xs-12 table-col">
+          <div class="table-responsive">
+            <table class=" table table-bordered table-stripped">
+              <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Added Date</th>
+                                    <th>Completed</th>
+                                    <th>Actions</th>
+                               </tr>
+                            </thead>
+                            <tbody>
+                                @for (var i = 0; i < Model.ToDoList.Count; i++)
+                                {
+                                    var item = Model.ToDoList[i];
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Description)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.AddDate)
+                                        </td>
+                                        <td>
+                                            @if (item.IsCompleted) 
+                                                {
+                                                    <span>COMPLETED</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>NOT-COMPLETED</span>
+                                                }
+                                        </td>
+                                        <td>
+                                             <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary">Edit</a>
+                                             <a asp-action="Complete" asp-route-id="@item.ID" class="btn btn-primary">Complete</a>
+                                             <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-primary">Delete</a>
+                                        </td>
+                   
+                                    </tr>
+                                }
+                            </tbody>
+            </table>
+          </div>
+          <!-- Table Ends -->
+        </div>
+      </div>
+    </div>
+    <!-- Form Row ENds -->
+
+  </div>
+  <!-- Grid Inner Ends -->
+
+</div>

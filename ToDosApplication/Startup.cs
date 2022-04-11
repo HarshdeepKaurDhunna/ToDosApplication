@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ToDosApplication.Services;
 
 namespace ToDosApplication
 {
@@ -24,6 +25,12 @@ namespace ToDosApplication
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            _ = services.AddTransient<ToDoService>();
+            services.AddSingleton<ToDoService>(new ToDoService());
+            services.AddMvc().AddRazorPagesOptions(options =>
+            {
+                options.Conventions.AddPageRoute("/Home", "");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
